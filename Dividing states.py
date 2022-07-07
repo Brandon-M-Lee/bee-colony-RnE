@@ -32,13 +32,13 @@ for file in correct:
     f = open("./data/states\\"+file+".csv", "r", encoding = 'utf-8')
     rdr = list(csv.reader(f))
     # print(file, list(rdr)[:3])
-    for i in range(len(rdr)):
+    for i in range(1, len(rdr)):
         rdr[i].insert(0, file)
-    merge_states += rdr
+    merge_states += rdr[1:]
     f.close()
 
 for i in merge_states:
-    with open("data/states/merge_states.csv", 'w') as f:
+    with open("data/states/merge_states.csv", 'a') as f:
         temp = str(i[0])
         for _ in i[1:]:
             temp += ","+_
