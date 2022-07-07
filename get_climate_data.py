@@ -28,7 +28,7 @@ url = 'https://www.ncdc.noaa.gov/cdo-web/search'
 
 def get_data(year, state):
     driver.get(url)
-    Select(driver.find_element(By.ID, 'selectedDataset')).select_by_index(2) #데이터 종류 선택 -> 완료
+    Select(driver.find_element(By.ID, 'selectedDataset')).select_by_visible_text('Global Summary of the Month') #데이터 종류 선택 -> 완료
 
     driver.find_element(By.CLASS_NAME, 'noaa-daterange-input').click() #날짜 범위 선택 -> 완료
     time.sleep(1)
@@ -41,7 +41,7 @@ def get_data(year, state):
     Select(driver.find_elements(By.CLASS_NAME, 'ui-datepicker-month')[-1]).select_by_index(11)
     driver.find_elements(By.CLASS_NAME, 'ui-state-default')[-1].click()
 
-    driver.find_element(By.CLASS_NAME, 'noaa-daterange-btn noaa-daterange-applybtn').click()
+    driver.find_element(By.XPATH, '//*[@id="noaa-daterange-form"]/button[1]').click() #날짜 설정 -> 완료
 
     Select(driver.find_element(By.ID, 'selectedResultType')).select_by_visible_text('States') #검색 방식 선택 -> 완료
 
@@ -50,28 +50,46 @@ def get_data(year, state):
     driver.find_element(By.ID, 'searchSubmit').click() #검색 버튼 클릭 -> 완료
     time.sleep(1)
 
-    pyautogui.moveTo(376, 433) #장바구니에 넣기
+    while True:
+        if driver.find_elements(By.XPATH, '/html/body/div[1]/div[2]/div/form/div[2]/div[2]/div[2]/div/div[1]/a'):
+            break
+
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div/form/div[2]/div[2]/div[2]/div/div[1]/a').click() #장바구니에 담기
     time.sleep(1)
-    pyautogui.click()
 
-    pyautogui.moveTo(1214, 396) #마우스 커서를 장바구니를 볼 수 있는 위치로 이동
-    driver.find_element(By.ID, 'cartPreviewButton').click() #장바구니로 이동
+    pyautogui.moveTo(614, 396) #마우스 커서 위치 잠시 다른 곳으로 이동
+    pyautogui.moveTo(1214, 396) #마우스 커서를 장바구니를 볼 수 있는 위치로 이동 -> 완료
+    driver.find_element(By.ID, 'cartPreviewButton').click() #장바구니로 이동 -> 완료
 
-    driver.find_elements(By.CLASS_NAME, 'productSelect')[-1].click() # csv 상품 선택
+    driver.find_elements(By.CLASS_NAME, 'productSelect')[-1].click() # csv 상품 선택 -> 완료
 
-    driver.find_elements(By.CLASS_NAME, 'button cartButton floatRight')[0].click() # 다음 단계
+    driver.find_elements(By.XPATH, '//*[@id="cartContinue"]/button')[0].click() # 다음 단계 클릭 -> 완료
+    time.sleep(1)
 
-    driver.find_element(By.ID, 'EVAP').click() #증발량 선택
-    driver.find_element(By.ID, 'PRCP').click() #강수량 선택
-    driver.find_element(By.ID, 'TMAX').click() #최고기온 선택
-    driver.find_element(By.ID, 'TMIN').click() #최저기온 선택
-    driver.find_element(By.ID, 'AWND').click() #평균 풍속 선택
-    driver.find_element(By.ID, 'TAVG').click() #평균 기온 선택
+    while True:
+        if driver.find_elements(By.XPATH, '//*[@id="dataTypesContainer"]/ul/li[2]/label'):
+            break
+    driver.find_element(By.XPATH, '//*[@id="dataTypesContainer"]/ul/li[2]/label').click() # 증발량 상세 항목 선택 -> 완료
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div/form/div/div[4]/ul/li[2]/div/ul/li[3]/input').click() #증발량 선택 -> 완료
+    driver.find_element(By.XPATH, '//*[@id="dataTypesContainer"]/ul/li[4]/label').click() # 강수량 상세 항목 선택 -> 완료
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div/form/div/div[4]/ul/li[4]/div/ul/li[6]/input').click() #강수량 선택 -> 완료
+    driver.find_element(By.XPATH, '//*[@id="dataTypesContainer"]/ul/li[6]/label').click() #기온 상세 항목 선택 -> 완료
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div/form/div/div[4]/ul/li[6]/div/ul/li[6]/input').click() #최고기온 선택 -> 완료
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div/form/div/div[4]/ul/li[6]/div/ul/li[7]/input').click() #최저기온 선택 -> 완료
+    driver.find_element(By.XPATH, '//*[@id="dataTypesContainer"]/ul/li[7]/label').click() # 풍목 상세 항목 선택 -> 완료
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div/form/div/div[4]/ul/li[7]/div/ul/li[1]/input').click() #평균 풍속 선택 -> 완료
+    
 
-    driver.find_element(By.ID, 'buttonContinue').click()#다음 단계
+    driver.find_element(By.ID, 'buttonContinue').click()#다음 단계 클릭 -> 완료
+    time.sleep(1)
 
-    driver.find_element(By.ID, 'email').send_keys('minjae.py@gmail.com') #이메일 입력
-    driver.find_element(By.ID, 'emailConfirmation').send_keys('minaje.py@gmail.com') #이메일 확인
+    while True:
+        if driver.find_elements(By.ID, 'email'):
+            break
+    driver.find_element(By.ID, 'email').send_keys('pythonlover1457@gmail.com') #이메일 입력 -> 완료
+    driver.find_element(By.ID, 'emailConfirmation').send_keys('pythonlover1457@gmail.com') #이메일 확인 입력 -> 완료
+
+    driver.find_element(By.XPATH, '/html/body/div/div[2]/div/form/div/div[4]/input').click() #주문 완료
 
 for year in range(1987, 2018):
     for state in states_list:
