@@ -30,6 +30,8 @@ def copy_merged_to_other_directory():
     for state in os.listdir('data/climate'):
         if state.endswith('.py') or state.endswith('.md') or state == 'daily summury':
             continue
+        if not os.path.exists('data/climate/daily summury'):
+            os.makedirs('data/climate/daily summury')
         shutil.copy('data/climate/'+state+'/daily summury merged.csv', 'data/climate/daily summury/'+state+'_daily summury.csv')
         os.remove('data/climate/'+state+'/daily summury merged.csv')
 
