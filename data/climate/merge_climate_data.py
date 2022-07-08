@@ -4,8 +4,8 @@ import pandas as pd
 import shutil
 
 def merge_data():
-    data_list = list()
     for state in os.listdir('data/climate'):
+        data_list = list()
         if state.endswith('.py') or state.endswith('.md'):
             continue
         for file in os.listdir('data/climate/'+state+'/daily summury'):
