@@ -1,0 +1,4 @@
+pearson 상관계수
+spearman 상관계수
+평년 최저 기압: 0.8162550924854761
+kendall tau

@@ -1,0 +1,4 @@
+pearson 상관계수
+spearman 상관계수
+평년 최저 풍속: -0.7391861395586191
+kendall tau

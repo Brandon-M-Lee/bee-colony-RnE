@@ -1,0 +1,3 @@
+pearson 상관계수
+spearman 상관계수
+kendall tau
