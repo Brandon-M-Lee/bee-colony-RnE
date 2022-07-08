@@ -33,5 +33,3 @@ def clean_directory():
         for folder in os.listdir(path+'/'+state):
             if folder != 'all reports' and folder != 'daily summury':
                 shutil.rmtree(path+'/'+state+'/'+folder)
-
-clean_directory()

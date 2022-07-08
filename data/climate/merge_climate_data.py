@@ -6,7 +6,7 @@ import shutil
 def merge_data():
     data_list = list()
     for state in os.listdir('data/climate'):
-        if state.endswith('.py') or state.endswith('.md'):
+        if state.endswith('.py') or state.endswith('.md') or state != 'Arkansas':
             continue
         for file in os.listdir('data/climate/'+state+'/daily summury'):
             if not os.path.exists('data/climate/'+state+'/all reports/'+file):
@@ -24,12 +24,14 @@ def merge_data():
                 ]].fillna(0))
 
         result = pd.concat(data_list, ignore_index=True)
-        result.to_csv('data/climate/'+state+'/daily summarie merged.csv', index=False)
+        result.to_csv('data/climate/'+state+'/daily summury merged.csv', index=False)
 
 def copy_merged_to_other_directory():
     for state in os.listdir('data/climate'):
-        if state.endswith('.py') or state.endswith('.md') or state == 'daily summury':
+        if state.endswith('.py') or state.endswith('.md') or state == 'daily summury' or state != 'Arkansas':
             continue
-        shutil.copy('data/climate/'+state+'/daily summarie merged.csv', 'data/climate/daily summury/'+state+'_daily summury.csv')
+        shutil.copy('data/climate/'+state+'/daily summury merged.csv', 'data/climate/daily summury/'+state+'_daily summury.csv')
+        os.remove('data/climate/'+state+'/daily summury merged.csv')
 
+merge_data()
 copy_merged_to_other_directory()
