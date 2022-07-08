@@ -6,7 +6,7 @@ import shutil
 def merge_data():
     data_list = list()
     for state in os.listdir('data/climate'):
-        if state.endswith('.py') or state.endswith('.md') or state != 'Arkansas':
+        if state.endswith('.py') or state.endswith('.md'):
             continue
         for file in os.listdir('data/climate/'+state+'/daily summury'):
             if not os.path.exists('data/climate/'+state+'/all reports/'+file):
@@ -28,7 +28,7 @@ def merge_data():
 
 def copy_merged_to_other_directory():
     for state in os.listdir('data/climate'):
-        if state.endswith('.py') or state.endswith('.md') or state == 'daily summury' or state != 'Arkansas':
+        if state.endswith('.py') or state.endswith('.md') or state == 'daily summury':
             continue
         shutil.copy('data/climate/'+state+'/daily summury merged.csv', 'data/climate/daily summury/'+state+'_daily summury.csv')
         os.remove('data/climate/'+state+'/daily summury merged.csv')
