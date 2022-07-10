@@ -8,9 +8,9 @@ import numpy as np
 print(list(os.listdir("data/states/ALABAMA")))
 for state in os.listdir("data/states"):
     print(state)
-    if f"{state}_avg_year.csv" in list(os.listdir(f"data/states/{state}")):
-        print("already exists")
-        continue
+    # if f"{state}_avg_year.csv" in list(os.listdir(f"data/states/{state}")):
+    #     print("already exists")
+    #     continue
     if state == 'NEW JERSEY' or state == 'NEW YORK' or state == 'WEST VIRGINIA':
         print("skipping")
         continue
@@ -28,12 +28,12 @@ for state in os.listdir("data/states"):
     day_num = 0
     
     for i in range(len(df)):
-        if df.loc[i]["Date (String)"][:4] != year:
-            year = df.loc[i]["Date (String)"][:4]
+        if df.loc[i]["Date (String)"][:4] != year or i == len(df)-1:
             for j in range(len(collist)):
                 avg_year[collist[j]] = avg_year[collist[j]]/day_num
             date_avg_year = {"Date (String)": year}
             date_avg_year.update(avg_year)
+            year = df.loc[i]["Date (String)"][:4]
             # print(date_avg_year)
             # print("=============")
             # print(df.columns.tolist())
