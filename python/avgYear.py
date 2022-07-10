@@ -5,9 +5,15 @@ import os
 import pandas as pd
 import numpy as np
 
-
-
+print(list(os.listdir("data/states/ALABAMA")))
 for state in os.listdir("data/states"):
+    print(state)
+    if f"{state}_avg_year.csv" in list(os.listdir(f"data/states/{state}")):
+        print("already exists")
+        continue
+    if state == 'NEW JERSEY' or state == 'NEW YORK' or state == 'WEST VIRGINIA':
+        print("skipping")
+        continue
     avg_list = list()
     
     df = pd.read_csv(f"data/states/{state}/{state}_climate.csv", encoding='utf-8')
@@ -19,7 +25,6 @@ for state in os.listdir("data/states"):
     avg_year = {}
     for i in range(len(collist)):
         avg_year[collist[i]] = 0 
-    print(avg_year)
     day_num = 0
     
     for i in range(len(df)):
@@ -35,7 +40,6 @@ for state in os.listdir("data/states"):
             # print("=============")
             # print(list(date_avg_year.values()))
             date_avg_year=pd.DataFrame([list(date_avg_year.values())], columns=df.columns.tolist())
-            print(date_avg_year)
             avg_list.append(date_avg_year)
             
             avg_year = {}
@@ -45,10 +49,10 @@ for state in os.listdir("data/states"):
             
         for col in collist:
             avg_year[col] += float(df.loc[i][col])
-            day_num += 1
+        day_num += 1
     avg_df = pd.concat(avg_list)
     print(avg_df)
-    avg_df.to_csv(f"data/climate/{state}/{state}_avg_year.csv", index=False)
+    avg_df.to_csv(f"data/states/{state}/{state}_avg_year.csv", index=False)
 
 
 '''
