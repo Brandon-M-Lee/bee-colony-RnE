@@ -103,8 +103,10 @@ for state in os.listdir('data/correlation'):
                     pressure_low_minus.append(state[:-4])
             idx += 1
 
-with open('data/correlation/pearson_plus_minus.txt', 'a', encoding='utf-8') as f:
+with open('data/correlation/pearson_plus_minus.txt', 'w', encoding='utf-8') as f:
     f.write('temp_high_plus\n')
+
+with open('data/correlation/pearson_plus_minus.txt', 'a', encoding='utf-8') as f:
     f.write(f'{temp_high_plus[0]}\n{temp_high_plus[1:]}\n')
     f.write('temp_low_plus\n')
     f.write(f'{temp_low_plus[0]}\n{temp_low_plus[1:]}\n')
