@@ -41,7 +41,7 @@ pressure_low_minus.append(0)
 idx = 0
 
 for state in os.listdir('data/correlation'):
-    if state == 'upper 0.7' or state == 'useful data':
+    if state == 'upper 0.7' or state == 'useful data' or state == 'pearson_plus_minus.txt':
         continue
     with open(f'data/correlation/{state}', 'r', encoding='utf-8') as f:
         for line in f.readlines()[2:11]:
@@ -103,21 +103,42 @@ for state in os.listdir('data/correlation'):
                     pressure_low_minus.append(state[:-4])
             idx += 1
 
-print('temp_high_plus:', temp_high_plus)
-print('temp_high_minus:', temp_high_minus)
-print('temp_low_plus:', temp_low_plus)
-print('temp_low_minus:', temp_low_minus)
-print('dew_high_plus:', dew_high_plus)
-print('dew_high_minus:', dew_high_minus)
-print('dew_low_plus:', dew_low_plus)
-print('dew_low_minus:', dew_low_minus)
-print('wind_high_plus:', wind_high_plus)
-print('wind_high_minus:', wind_high_minus)
-print('wind_low_plus:', wind_low_plus)
-print('wind_low_minus:', wind_low_minus)
-print('rain_plus:', rain_plus)
-print('rain_minus:', rain_minus)
-print('pressure_high_plus:', pressure_high_plus)
-print('pressure_high_minus:', pressure_high_minus)
-print('pressure_low_plus:', pressure_low_plus)
-print('pressure_low_minus:', pressure_low_minus)
+with open('data/correlation/pearson_plus_minus.txt', 'w', encoding='utf-8') as f:
+    f.write('temp_high_plus\n')
+
+with open('data/correlation/pearson_plus_minus.txt', 'a', encoding='utf-8') as f:
+    f.write(f'{temp_high_plus[0]}\n{temp_high_plus[1:]}\n')
+    f.write('temp_low_plus\n')
+    f.write(f'{temp_low_plus[0]}\n{temp_low_plus[1:]}\n')
+    f.write('dew_high_plus\n')
+    f.write(f'{dew_high_plus[0]}\n{dew_high_plus[1:]}\n')
+    f.write('dew_low_plus\n')
+    f.write(f'{dew_low_plus[0]}\n{dew_low_plus[1:]}\n')
+    f.write('wind_high_plus\n')
+    f.write(f'{wind_high_plus[0]}\n{wind_high_plus[1:]}\n')
+    f.write('wind_low_plus\n')
+    f.write(f'{wind_low_plus[0]}\n{wind_low_plus[1:]}\n')
+    f.write('rain_plus\n')
+    f.write(f'{rain_plus[0]}\n{rain_plus[1:]}\n')
+    f.write('pressure_high_plus\n')
+    f.write(f'{pressure_high_plus[0]}\n{pressure_high_plus[1:]}\n')
+    f.write('pressure_low_plus\n')
+    f.write(f'{pressure_low_plus[0]}\n{pressure_low_plus[1:]}\n')
+    f.write('temp_high_minus\n')
+    f.write(f'{temp_high_minus[0]}\n{temp_high_minus[1:]}\n')
+    f.write('temp_low_minus\n')
+    f.write(f'{temp_low_minus[0]}\n{temp_low_minus[1:]}\n')
+    f.write('dew_high_minus\n')
+    f.write(f'{dew_high_minus[0]}\n{dew_high_minus[1:]}\n')
+    f.write('dew_low_minus\n')
+    f.write(f'{dew_low_minus[0]}\n{dew_low_minus[1:]}\n')
+    f.write('wind_high_minus\n')
+    f.write(f'{wind_high_minus[0]}\n{wind_high_minus[1:]}\n')
+    f.write('wind_low_minus\n')
+    f.write(f'{wind_low_minus[0]}\n{wind_low_minus[1:]}\n')
+    f.write('rain_minus\n')
+    f.write(f'{rain_minus[0]}\n{rain_minus[1:]}\n')
+    f.write('pressure_high_minus\n')
+    f.write(f'{pressure_high_minus[0]}\n{pressure_high_minus[1:]}\n')
+    f.write('pressure_low_minus\n')
+    f.write(f'{pressure_low_minus[0]}\n{pressure_low_minus[1:]}\n')
