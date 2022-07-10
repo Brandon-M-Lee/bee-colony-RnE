@@ -8,11 +8,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Ridge
 from sklearn.linear_model import Lasso
 
-def regression(state):
+def process(state):
     df = pd.read_csv(f'data/states/{state}/{state}_avg_year.csv') #학습 데이터
     del df["Date (String)"]
     train_data_np = df.to_numpy()
-
 
     df = pd.read_csv(f'data/states/{state}/{state}_bee.csv') #테스트 데이터
     target_data_np = np.array(list(reversed(list(df[" Value"]))))
@@ -31,6 +30,9 @@ def regression(state):
     train_scaled = ss.transform(train_poly)
     test_scaled = ss.transform(test_poly)
 
+    return train_scaled, test_scaled, train_target, test_target
+
+def ridgeRegression(train_scaled, test_scaled, train_target, test_target):
     ridge = Ridge() #릿지 회귀
     ridge.fit(train_scaled, train_target)
     print(ridge.score(test_scaled, test_target)) #R^2값 확인
@@ -48,4 +50,25 @@ def regression(state):
     plt.xlabel("Alpha")
     plt.ylabel("R^2")
     plt.show()
-regression("ALABAMA")
+
+def lassoRegression(train_scaled, test_scaled, train_target, test_target):
+    lasso = Lasso() #라소 회귀
+    lasso.fit(train_scaled, train_target)
+    print(lasso.score(test_scaled, test_target)) #R^2값 확인
+
+    train_score = list()#그래프 그리기 위한 리스트
+    test_score = list()
+    alpha_list = np.arange(0.1, 10, 0.1)
+    for alpha in alpha_list:
+        lasso = Lasso(alpha=alpha)
+        lasso.fit(train_scaled, train_target)
+        train_score.append(lasso.score(train_scaled, train_target))
+        test_score.append(lasso.score(test_scaled, test_target))
+    plt.plot(np.log10(alpha_list), train_score, label="Train")
+    plt.plot(np.log10(alpha_list), test_score, label="Test")
+    plt.xlabel("Alpha")
+    plt.ylabel("R^2")
+    plt.show()
+train_scaled, test_scaled, train_target, test_target = process("ALABAMA")
+ridgeRegression(train_scaled, test_scaled, train_target, test_target)
+lassoRegression(train_scaled, test_scaled, train_target, test_target)
