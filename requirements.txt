@@ -4,3 +4,5 @@ chromedriver-autoinstaller == 0.3.1
 PyAutoGUI == 0.9.53
 folium == 0.12.1.post1
 scipy == 1.8.1
+matplotlib == 3.5.2
+numpy == 1.23.1
