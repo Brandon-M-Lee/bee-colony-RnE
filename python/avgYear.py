@@ -14,6 +14,8 @@ for state in os.listdir("data/states"):
     if state == 'NEW JERSEY' or state == 'NEW YORK' or state == 'WEST VIRGINIA':
         print("skipping")
         continue
+    # if state != "COLORADO":
+    #     continue
     avg_list = list()
     
     df = pd.read_csv(f"data/states/{state}/{state}_climate.csv", encoding='utf-8')
