@@ -84,11 +84,11 @@ def lassoRegression(state, train_scaled, test_scaled, train_target, test_target)
 for state in os.listdir("data/states"):
     print(state)
     except_state = ["NEW JERSEY", "NEW YORK", "WEST VIRGINIA", "COLORADO", "MINNESOTA", "MISSISSIPPI"]
-    if state in except_state:#콜로라도는 데이터 수가 이상함
+    if state in except_state:
         print("skipping")
         continue
     
-    dgr = 2
+    dgr = 3
     ridge_test_list = list()
     lasso_test_list = list()
     ridge_gap_list = list()
